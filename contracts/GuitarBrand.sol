@@ -44,7 +44,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
         string model;
         uint price;
         uint serial;
-        address payable factory;
+        address factory;
         bool isNew;
         bool forSale;
     }
@@ -75,7 +75,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     */
     modifier onlyGuitarOwner(uint _serial) {
         // only a the owner f the instrument
-        require(ownerOf(_serial) == msg.sender, "Caller is does not own this guitar");
+        require(ownerOf(_serial) == msg.sender, "Caller does not own this guitar");
         _;
     }
     
@@ -204,8 +204,9 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
         bool ONLY_DEALER_SENDER = (!hasRole(FACTORY,msg.sender))&&hasRole(DEALER,msg.sender);
         bool ONLY_DEALER_OWNER = (!hasRole(FACTORY,ownerAddress))&&hasRole(DEALER,ownerAddress);
         require(!(ONLY_DEALER_SENDER && ONLY_DEALER_OWNER), "Dealers can not trade among them");
-        // transfer funds to buy the address
+        // cast into payble address and transfer funds to buy the address
         address(uint160(ownerAddress)).transfer(msg.value);
+        // transfer guitar property
         _transfer(ownerAddress, msg.sender, _serial);
         // Here becomes used, it was bought by a regular user
        if(WITHOUT_ROL){guitars[_serial].isNew = false;} 

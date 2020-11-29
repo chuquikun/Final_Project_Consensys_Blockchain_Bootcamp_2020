@@ -17,7 +17,7 @@ contract('GuitarBrand', (accounts) =>{
 
     const usaFactory = accounts[0];
     const mexFactory = accounts[1];
-    const amsSupply = accounts[2];
+    const amSupply = accounts[2];
     const zzZounds = accounts[3];
     const hendrix = accounts[4];
     const gilmour = accounts[5];
@@ -32,7 +32,8 @@ contract('GuitarBrand', (accounts) =>{
         factory = await contract.FACTORY()
         dealer = await contract.DEALER()
         factoryUp = await contract.grantRole(factory, mexFactory, {from:owner})
-        dealerUp = await contract.grantRole(dealer, amsSupply, {from:mexFactory})
+        dealerUp = await contract.grantRole(dealer, amSupply, {from:mexFactory})
+        ealerUp = await contract.grantRole(dealer, zzZounds, {from:mexFactory})
     })
 
     
@@ -82,20 +83,20 @@ contract('GuitarBrand', (accounts) =>{
             assert.equal(event1.account, mexFactory, 'The log for sign up a factory role was correct')
             // Checks dealer role was correctly assigned to the account and the proper log was emitted
             const event2 = dealerUp.logs[0].args
-            let isDealer = await contract.hasRole(dealer, amsSupply)
+            let isDealer = await contract.hasRole(dealer, amSupply)
             assert.isTrue(isDealer, 'Dealer role was assigned correctly');
-            assert.equal(event2.account, amsSupply, 'The log for sign up a dealer role was correct')           
+            assert.equal(event2.account, amSupply, 'The log for sign up a dealer role was correct')           
 
         })
         it('correct destitution of roles', async() =>{
             // Checks factory role was correctly revoke to the account and the proper log was emitted  
-            const dealerDown = await contract.revokeRole(dealer, amsSupply, {from:mexFactory})
+            const dealerDown = await contract.revokeRole(dealer, amSupply, {from:mexFactory})
             const event1 = dealerDown.logs[0].args
-            let isNotDealerAnymore = await contract.hasRole(dealer, amsSupply)
+            let isNotDealerAnymore = await contract.hasRole(dealer, amSupply)
             assert.isFalse(isNotDealerAnymore, 'Dealer role was revoked correctly')
-            assert.equal(event1.account, amsSupply, 'The log for unsubscribe dealer role was correct')
+            assert.equal(event1.account, amSupply, 'The log for unsubscribe dealer role was correct')
             // restitution of their roles for further tests
-            await contract.grantRole(dealer, amsSupply, {from:mexFactory})
+            await contract.grantRole(dealer, amSupply, {from:mexFactory})
             
             
             // Checks dealer role was correctly revoked to the account and the proper log was emitted         
@@ -125,7 +126,7 @@ contract('GuitarBrand', (accounts) =>{
             assert.equal(result, 2, 'Your first strat!!!!')
         })
         it('they can not mint', async() =>{
-            await contract.mintGuitar("stratocaster", 10000, {from:amsSupply}).should.be.rejected;
+            await contract.mintGuitar("stratocaster", 10000, {from:amSupply}).should.be.rejected;
             await contract.mintGuitar("stratocaster", 10000, {from:hendrix}).should.be.rejected;  
         })
         it('guitar well minted', async()  =>{
@@ -191,6 +192,7 @@ contract('GuitarBrand', (accounts) =>{
 
     })
     describe('buying guitars', async() =>{
+
         it('user bought from dealer', async()=>{
             await contract.buyGuitar(3, {from:hendrix, value:10000})
             const result = await contract.ownerOf(3)
@@ -206,18 +208,17 @@ contract('GuitarBrand', (accounts) =>{
             const result = await contract.ownerOf(1)
             assert.equal(result, gilmour,"NGD for Gilmour!")   
         })
+        // amSupply bought from gilmour
         it('dealer bought from user', async()=>{
-            await contract.buyGuitar(3, {from:amsSupply, value:10000})
+            await contract.buyGuitar(3, {from:amSupply, value:10000})
             const result = await contract.ownerOf(3)
-            assert.equal(result, amsSupply,"amsSupply hasd new 2nd hand guitar!")   
+            assert.equal(result, amSupply,"amSupply has new 2nd hand guitar!")   
         })
-        it('dealer bought from factory', async()=>{
-            await contract.mintGuitar("dreadnought",100000, {from:mexFactory})
-            supply = await contract.totalSupply()
-            await contract.buyGuitar(supply, {from:guitarLessDude, value:10000})
-            const result = await contract.ownerOf(supply)
-            assert.equal(result, guitarLessDude,"amsSupply hasd new 2nd hand guitar!")   
-        })
+        it('user dealer from facto', async()=>{
+            await contract.buyGuitar(2, {from:amSupply, value:10000})
+            const result = await contract.ownerOf(2)
+            assert.equal(result, amSupply,"Hedrix has a new guitar!")            
+         })
         it('dealer cant buy dealer', async()=>{
             await contract.changeSaleStatus(4, {from:mexFactory})
             await contract.buyGuitar(4, {from:zzZounds, value:10000}).should.be.rejected
@@ -228,8 +229,8 @@ contract('GuitarBrand', (accounts) =>{
         it('can not buy what does not exist', async()=>{
             await contract.buyGuitar(10, {from:usaFactory, value:10000}).should.be.rejected
         })
-        it('can not buy it if it is nos for sale', async()=>{
-            await contract.changeSaleStatus(2, {from:mexFactory})
+        it('can not buy i,t if it is not for sale', async()=>{
+            await contract.changeSaleStatus(2, {from:amSupply})
             await contract.buyGuitar(2, {from:hendrix, value:10000}).should.be.rejected
         })
 
