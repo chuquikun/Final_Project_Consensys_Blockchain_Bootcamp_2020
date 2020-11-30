@@ -1,0 +1,4 @@
+The deployed address of the FenFer Guitar Brand lives on Rinkeby network at
+0x4a8B978Fb523a56B815abfBb7657A86D66431434
+
+https://rinkeby.etherscan.io/address/0x4a8B978Fb523a56B815abfBb7657A86D66431434

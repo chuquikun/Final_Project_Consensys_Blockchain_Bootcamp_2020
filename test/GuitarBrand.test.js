@@ -49,7 +49,7 @@ contract('GuitarBrand', (accounts) =>{
         })
         it('correct token brand name assignation', async() =>{
             const name = await contract.name()
-            assert.equal(name, 'Fender')
+            assert.equal(name, 'Fenfer')
         })     
         it('correct token brand symbol assignation', async() =>{
             const symbol = await contract.symbol()
@@ -235,8 +235,12 @@ contract('GuitarBrand', (accounts) =>{
         })
 
     })
-
-
-
+    describe('sale booleans', async()=>{
+        it('number of guitars for sale',async()=>{
+            const stock = await contract.theseAreForSale().then((res) => {return(res.reduce((sum, next) => sum + next, false))})
+            //Up to this moment it should be 3 guitars for sale
+            assert.equal(stock, 3, "Your stock for sale is correct")        
+        })
+    })
 
 })

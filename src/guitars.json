@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "serial": "1",
+    "picture": "images/stratocaster0.jpg",
+    "price": 2000000,
+    "model": "Stratocaster"
+  },
+  {
+    "id": 1,
+    "serial": "2",
+    "picture": "images/stratocaster1.jpg",
+    "price": 2000000,
+    "model": "Stratocaster"
+  },
+  {
+    "id": 2,
+    "serial": "3",
+    "picture": "images/stratocaster2.jpg",
+    "price": 2000000,
+    "model": "Stratocaster"
+  },
+  {
+    "id": 3,
+    "serial": "4",
+    "picture": "images/stratocaster3.jpg",
+    "price": 2000000,
+    "model": "Stratocaster"
+  },
+  {
+    "id": 4,
+    "serial": "5",
+    "picture": "images/telecaster4.jpg",
+    "price": 3000000,
+    "model": "Telecaster"
+  },
+  {
+    "id": 5,
+    "serial": "6",
+    "picture": "images/telecaster5.jpg",
+    "price": 3000000,
+    "model": "Telecaster"
+  },
+  {
+    "id": 6,
+    "serial": "7",
+    "picture": "images/telecaster6.jpg",
+    "price": 3000000,
+    "model": "Telecaster"
+  },
+  {
+    "id": 7,
+    "serial": "8",
+    "picture": "images/telecaster7.jpg",
+    "price": 3000000,
+    "model": "Telecaster"
+  },
+  {
+    "id": 8,
+    "serial": "9",
+    "picture": "images/jazzmaster8.jpg",
+    "price": 1500000,
+    "model": "Jazzmaster"
+  },
+  {
+    "id": 9,
+    "serial": "10",
+    "picture": "images/jazzmaster9.jpg",
+    "price": 1500000,
+    "model": "Jazzmaster"
+  },
+  {
+    "id": 10,
+    "serial": "11",
+    "picture": "images/jazzmaster10.jpg",
+    "price": 1500000,
+    "model": "Jazzmaster"
+  },
+  {
+    "id": 11,
+    "serial": "12",
+    "picture": "images/jazzmaster11.jpg",
+    "price": 1500000,
+    "model": "Jazzmaster"
+  }  
+]

@@ -27,6 +27,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     // List of all the dealers of this guitar brand
     address[] public dealers;
     Guitar[] public guitars;
+
     
     /** 
     * @dev Roles' encoding
@@ -99,11 +100,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
         _;
     } 
 
-        /**
-    * @dev Just checks the existence of a guitar
-    */
-
-   
+  
     /**
      * @dev Initializes the contract by setting a `brandName` and a `brandSymbol` to the token collection.
      * Its set the 'brandOwner' to the owner contract which bay default it's  the one who instantiated it.
@@ -184,6 +181,19 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
         uint n =  _serial.sub(1);
         guitars[n].forSale = !(guitars[n].forSale);
         emit SaleStatus(_serial, msg.sender, guitars[n].forSale);
+    }
+
+    /**
+    * @dev This function retrieves sale status of all the guitar ever minted, it is meant to feed web's applications
+    */
+
+    function theseAreForSale() public view returns(bool[] memory){
+        uint n = totalSupply();
+        bool[] memory saleStock = new bool[](n);
+        for (uint i=0; i<n; i++) {
+            saleStock[i] = guitars[i].forSale;
+            }
+        return saleStock;
     }
 
 
