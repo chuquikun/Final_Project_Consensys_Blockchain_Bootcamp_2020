@@ -1,0 +1,89 @@
+Available Accounts
+==================
+(0) 0xEdF3755d82b5F0Da650F0F62C1b5414dd498F22d (100 ETH)
+(1) 0x7b43F9e8c2652D4E5C06a72cB5831FCb226D4aC0 (100 ETH)
+(2) 0xDb14C718d7e0741BEB91d09a05572774562dbA82 (100 ETH)
+(3) 0xcAc50eE309aaEb87b67f87DC426f3F8bE1490466 (100 ETH)
+(4) 0x34496d6248F72Fc72Cb7F4b754EE1811d9B59d6f (100 ETH)
+(5) 0xb56101bdaabA5a7446b72806e30001Bd1593130e (100 ETH)
+(6) 0xEE9c6DDA9b821fAC2C8AFFA925d2CCd8F1D39177 (100 ETH)
+(7) 0xc82320B68dB83b65ABF8491cc51BABa7091CEBCc (100 ETH)
+(8) 0x341F250Fa44D7AbDe8522f449a6B62F3d944f4fF (100 ETH)
+(9) 0x151888d184eb62E699021F091644d176714c5B4a (100 ETH)
+
+Private Keys
+==================
+(0) 0xea334c73d49e9aa01502139d6dd4ede1078472a27a989263ecf4ced8985ce275
+(1) 0x27806b33b771d733badb3ee46b094cba091206e220cd5065169df880e16edd93
+(2) 0x9effa5100f72f704eac2a30af57cb9a6240938f0175e171173faab6c5b1b0184
+(3) 0x21476e5f089dab83594febdb85a9a70ae8cb8a4321844d80784c8282de085e1f
+(4) 0x25b4df52b17dc481b5f9ad6c0de69fe6f1072eacc5d7a1398380c34a3ef1242b
+(5) 0xe8d1aeb60d6a42e0bebd255ab2c5ba7c76a45188027014a340c09b36cf438c33
+(6) 0x1b60771b1e93f8cd8b1d2b759d3cf8fd2af422e2db6a3aa4797d3ba52a03eb46
+(7) 0xab01016a3acb831d067498f8562ff932a3211241a53be3b424660af1e3107251
+(8) 0xf8b456a1743a0313be38008d757a0bde11a6902f372804e99f4675acb88b95d7
+(9) 0x5c5c9774ab2b97e8253a8917e89c8018d2df4f26d6616e6eeca26d11a1a124a7
+
+HD Wallet
+==================
+Mnemonic:      between crack hen predict display onion build inject elbow bachelor fire rocket
+Base HD Path:  m/44'/60'/0'/0/{account_index}
+
+
+
+1 start a network
+  GANACHE GUI fenfer network
+  size parade sudden mix faith beauty chicken wedding display dad devote chat
+2 Import account into metamask
+3 start app
+4  migrate to network
+5 mine some guitars 
+  let gb = await GuitarBrand.at(GuitarBrand.address)
+  gb.mintGuitar("Stratocaster",1000000000000000000)
+  gb.mintGuitar("Telecaster",3000000000000000000)
+  gb.GuitarBrand("Jazzmaster",1500000000000000000)
+6 assign a role of dealer
+7 change status of sale
+8 buy guitar
+
+
+gb.buyGuitar(2,{from:"0xb98D1954BF593c3eF61d31a7FFcca4fe2d669DDb","value":2000000})
+
+gb.buyGuitar(2,{from:"0xb98D1954BF593c3eF61d31a7FFcca4fe2d669DDb","value":2000000})
+await gb.guitars(2).then((res)=>{return res["price"]}).then((x)=>{return x.toString(10)}) // to return price from blockchain
+
+var pr = await gb.guitars(2).then((res)=>{return res["price"]})
+pr.toString(10)
+
+
+        const price = await GuitarBrandInstance .guitars(guitarId).then((res)=>{return res["price"]})
+        price.toString(10)
+
+certain plunge build marble tired true verify hill era opera summer runway
+
+(0) 0xC144A31C004985982c9e7913Aa685411b46e43E1 (100 ETH)
+(1) 0x484A03605dfe9d726dEd20c399Ee25eC9d9b2979 (100 ETH)
+(2) 0xda4d3Dc711824C2e5C40604205506c339Fa513c1 (100 ETH)
+(3) 0x48BEbD62EF37ac81a7c4f0fd787a5279D9e579d8 (100 ETH)
+(4) 0xd5609F9ED02E02cbF098a6E0cE7A6FB56390B2A7 (100 ETH)
+(5) 0xCf7b2E49c5e0b3b4C2Cc61B932C9a467F2962641 (100 ETH)
+(6) 0xb0bBB7fAC7B6Cc348Bdd661fA7ebF0832dac54d9 (100 ETH)
+(7) 0xA653083955F9a37f3F2c1AF7Ee478E4f2647ac5b (100 ETH)
+(8) 0x4284Ed974808219B79D2A6c5Ff6f67b889ce9587 (100 ETH)
+(9) 0x1e124637CC66D15ea4750dD61fC818599823E704 (100 ETH)
+
+Private Keys
+==================
+(0) 0x6c5c242ab8541af53db75f07191b368773b63ee9b6f9123b00bdef4f3d597d0a
+(1) 0xec150ecfabaacd31277427858ce5d8df15ec880bbc96a97dd590ae801a3ab549
+(2) 0xa94b3c6643c22696420b476bcbd1145752dd5437cbc4f1eeb3c0e5c4768dd5cb
+(3) 0x4f2f3100b88c275e90b3b546c50ac133240067a76faafa2a44058d75e6742a0e
+(4) 0x64ee8ad35148ccc19cc8d1ae9cd50edadc6808069646188e7a2998e43e9af677
+(5) 0x4a158ef8403cdf54e694111337579d175093b3f4a549cb1f68104f98eeec164a
+(6) 0xeabe58d964ae5846a3d9d5bea80d41576ec1e2e9b0a7ac573b19c195965d1396
+(7) 0xf8efcecff6c5762654d9864e0f8ab72db22b67a9a3c7366cce72be28688e9363
+(8) 0xc12cd4409dd55b70de9d4284e681089156c4bc52dc3d2e40eaa8175b8e065a75
+(9) 0x87c10702133ec2f40c901817082a79ee9f922364d6f21c4cb93398b1d65c5f66
+
+ganache-cli -p 8545 -m certain plunge build marble tired true verify hl era opera summer runway
+

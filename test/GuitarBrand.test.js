@@ -22,7 +22,9 @@ contract('GuitarBrand', (accounts) =>{
     const hendrix = accounts[4];
     const gilmour = accounts[5];
     const guitarLessDude = accounts[6];
-    
+     
+    //DEALER'S ROLE '0x31fec149acb2a6e0b1854d0fdb3f23210598a76b4f5f5d9f688154dbc523766f'
+    //FACTORY'S ROLES '0x547b500e425d72fd0723933cceefc203cef652b4736fd04250c3369b3e1a0a73'
 
 
 

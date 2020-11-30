@@ -14,6 +14,7 @@ App = {
         guitarTemplate.find('.guitar-model').text(data[i].model);
         guitarTemplate.find('.guitar-price').text(data[i].price);
         guitarTemplate.find('.btn-sale').attr('data-id', data[i].serial);
+        guitarTemplate.find('.btn-buy').attr('data-id', data[i].serial);
 
         guitarsRow.append(guitarTemplate.html());
       }
@@ -55,7 +56,7 @@ App = {
       // Set the provider for our contract
       App.contracts.GuitarBrand.setProvider(App.web3Provider);
     
-      // Use this contract to buy guitars and pause selling
+      
       return App.getStockforSale();
     });
     return App.bindEvents();
@@ -63,8 +64,10 @@ App = {
 
   bindEvents: function() {
     $(document).on('click', '.btn-sale', App.handleSaleState);
+    $(document).on('click', '.btn-buy', App.handleBuyGuitar);
   },
-
+  
+  // return ll the guitars for sale 
   getStockforSale: function() {
     var GuitarBrandInstance;
 
@@ -80,7 +83,7 @@ App = {
         } else{
           text4SaleSatus = "Not for sale";
         }
-          $('.panel-guitar').eq(i).find('button').text(text4SaleSatus);
+          $('.panel-guitar').eq(i).find('.btn-sale').text(text4SaleSatus);
       }
     }).catch(function(err) {
       console.log(err.messprice);
@@ -104,7 +107,7 @@ App = {
       App.contracts.GuitarBrand.deployed().then(function(instance) {
         GuitarBrandInstance = instance;
     
-        // Execute buy as a transaction by sending account
+        // change the sale status for the guitar
         return GuitarBrandInstance.changeSaleStatus(guitarId, {from: account});
       }).then(function(result) {
         return App.getStockforSale();
@@ -112,8 +115,37 @@ App = {
         console.log(err.message);
       });
     });
-  }
+  },
 
+
+  handleBuyGuitar: function(event) {
+    event.preventDefault();
+
+    var guitarId = parseInt($(event.target).data('id'));
+
+    var GuitarBrandInstance;
+
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+    
+      var account = accounts[0];
+    
+      App.contracts.GuitarBrand.deployed().then(function(instance) {
+        GuitarBrandInstance = instance;
+    
+        // Execute the transaction to buy a guitar from the logged account
+        return GuitarBrandInstance.buyGuitar(guitarId, {from: account});
+      }).then(function(result) {
+        return App.handleSaleState();
+      }).catch(function(err) {
+        console.log(err.message);
+      });
+    });
+  }  
+
+  
 };
 
 $(function() {

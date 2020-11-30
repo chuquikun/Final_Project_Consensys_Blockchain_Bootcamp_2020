@@ -146,6 +146,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     /**
      * @dev It creates a structure that accounts for a guitar construction
      * this structure it's related to the token set in the contructor function
+     * @notice It is enforce to used double qupote to price input to avoid because javascript parses numbers up to 2^53-1
      */
     function mintGuitar(string memory _model, uint _price) public onlyFactories {
         // to prevent overflow and set a correct value for sale
@@ -215,7 +216,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
         bool ONLY_DEALER_OWNER = (!hasRole(FACTORY,ownerAddress))&&hasRole(DEALER,ownerAddress);
         require(!(ONLY_DEALER_SENDER && ONLY_DEALER_OWNER), "Dealers can not trade among them");
         // cast into payble address and transfer funds to buy the address
-        address(uint160(ownerAddress)).transfer(msg.value);
+        address(uint160(ownerAddress)).transfer(guitars[_serial].price);
         // transfer guitar property
         _transfer(ownerAddress, msg.sender, _serial);
         // Here becomes used, it was bought by a regular user
