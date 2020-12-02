@@ -67,7 +67,7 @@ App = {
     $(document).on('click', '.btn-buy', App.handleBuyGuitar);
   },
   
-  // return ll the guitars for sale 
+  // return all the guitars for sale 
   getStockforSale: function() {
     var GuitarBrandInstance;
 
@@ -86,7 +86,7 @@ App = {
           $('.panel-guitar').eq(i).find('.btn-sale').text(text4SaleSatus);
       }
     }).catch(function(err) {
-      console.log(err.messprice);
+      console.log(err.message);
     });
   },
 
