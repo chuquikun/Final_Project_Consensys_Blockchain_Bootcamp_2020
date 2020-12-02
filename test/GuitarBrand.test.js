@@ -201,6 +201,7 @@ contract('GuitarBrand', (accounts) =>{
             assert.equal(result, hendrix,"Hedrix has a new guitar!")            
          })
          it('user bought from other user', async()=>{
+            await contract.changeSaleStatus(3, {from:hendrix})
             await contract.buyGuitar(3, {from:gilmour, value:10000})
             const result = await contract.ownerOf(3)
             assert.equal(result, gilmour,"NGD for Gilmour!")            
@@ -212,18 +213,19 @@ contract('GuitarBrand', (accounts) =>{
         })
         // amSupply bought from gilmour
         it('dealer bought from user', async()=>{
+            await contract.changeSaleStatus(3, {from:gilmour})
             await contract.buyGuitar(3, {from:amSupply, value:10000})
             const result = await contract.ownerOf(3)
             assert.equal(result, amSupply,"amSupply has new 2nd hand guitar!")   
         })
-        it('user dealer from facto', async()=>{
+        it('dealer buy from factory', async()=>{
             await contract.buyGuitar(2, {from:amSupply, value:10000})
             const result = await contract.ownerOf(2)
-            assert.equal(result, amSupply,"Hedrix has a new guitar!")            
+            assert.equal(result, amSupply,"amSupply has brand new guitar!")            
          })
         it('dealer cant buy dealer', async()=>{
-            await contract.changeSaleStatus(4, {from:mexFactory})
-            await contract.buyGuitar(4, {from:zzZounds, value:10000}).should.be.rejected
+            await contract.changeSaleStatus(2, {from:amSupply})
+            await contract.buyGuitar(2, {from:zzZounds, value:10000}).should.be.rejected
         })
         it('fabrics can not buy', async()=>{      
             await contract.buyGuitar(4, {from:usaFactory, value:10000}).should.be.rejected
@@ -231,8 +233,7 @@ contract('GuitarBrand', (accounts) =>{
         it('can not buy what does not exist', async()=>{
             await contract.buyGuitar(10, {from:usaFactory, value:10000}).should.be.rejected
         })
-        it('can not buy i,t if it is not for sale', async()=>{
-            await contract.changeSaleStatus(2, {from:amSupply})
+        it('can not buy it, if it is not for sale', async()=>{
             await contract.buyGuitar(2, {from:hendrix, value:10000}).should.be.rejected
         })
 
@@ -241,7 +242,7 @@ contract('GuitarBrand', (accounts) =>{
         it('number of guitars for sale',async()=>{
             const stock = await contract.theseAreForSale().then((res) => {return(res.reduce((sum, next) => sum + next, false))})
             //Up to this moment it should be 3 guitars for sale
-            assert.equal(stock, 3, "Your stock for sale is correct")        
+            assert.equal(stock, 1, "Your stock for sale is correct")        
         })
     })
 

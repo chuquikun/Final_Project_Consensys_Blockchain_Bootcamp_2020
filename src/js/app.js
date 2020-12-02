@@ -134,11 +134,10 @@ App = {
     
       App.contracts.GuitarBrand.deployed().then(function(instance) {
         GuitarBrandInstance = instance;
-    
         // Execute the transaction to buy a guitar from the logged account
-        return GuitarBrandInstance.buyGuitar(guitarId, {from: account});
+        return GuitarBrandInstance.buyGuitar(guitarId, {from: account, value:"5000000000000000000"});
       }).then(function(result) {
-        return App.handleSaleState();
+        return App.getStockforSale();
       }).catch(function(err) {
         console.log(err.message);
       });

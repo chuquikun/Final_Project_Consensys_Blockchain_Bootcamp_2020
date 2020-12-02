@@ -91,11 +91,10 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
 
         
     /**
-    * @dev Just checks the existence of a guitar
+    * @dev Just checks if guitars for sale it mus be added after ifGuitarExists
     */
 
     modifier isForSale (uint _serial){
-        require(_serial > 0 && _serial <= totalSupply(), "Guitar does not exist!");
         require(guitars[_serial-1].forSale, "Not for sale in this moment!");
         _;
     } 
@@ -203,24 +202,28 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     * the guard is used because is the only function that transfer actual funds.
     * If the buyer is not a deelaer or a factory the instrument becomes used
     */
+ 
 
     function buyGuitar(uint _serial) external payable ifGuitarExists(_serial) isForSale(_serial) nonReentrant() {
-        require(msg.value >= guitars[_serial].price, "Not enough money to buy this beauty");
+        require(msg.value >= guitars[_serial-1].price, "Not enough money to buy this beauty");
         require(!hasRole(FACTORY,msg.sender), "Factories make, they do not buy");
         address ownerAddress = ownerOf(_serial);
         require(ownerAddress != msg.sender, "You already have this instrument!!");
-        // This bool explainf if has a rol like dealer or factory
-        bool WITHOUT_ROL = false;
-        if(!(hasRole(FACTORY,msg.sender)||hasRole(DEALER,msg.sender))){WITHOUT_ROL  = true;}
+        // This bool explain if has a rol like dealer or factory
+        bool withoutRol = false;
+        if(!(hasRole(FACTORY,msg.sender)||hasRole(DEALER,msg.sender))){withoutRol  = true;}
         bool ONLY_DEALER_SENDER = (!hasRole(FACTORY,msg.sender))&&hasRole(DEALER,msg.sender);
         bool ONLY_DEALER_OWNER = (!hasRole(FACTORY,ownerAddress))&&hasRole(DEALER,ownerAddress);
         require(!(ONLY_DEALER_SENDER && ONLY_DEALER_OWNER), "Dealers can not trade among them");
-        // cast into payble address and transfer funds to buy the address
-        address(uint160(ownerAddress)).transfer(guitars[_serial].price);
+        // cast into payble address and transfer funds to buying the address
+        address(uint160(ownerAddress)).transfer(guitars[_serial-1].price);
         // transfer guitar property
         _transfer(ownerAddress, msg.sender, _serial);
         // Here becomes used, it was bought by a regular user
-       if(WITHOUT_ROL){guitars[_serial].isNew = false;} 
+       if(withoutRol){
+           guitars[_serial-1].isNew = false;
+           guitars[_serial-1].forSale = false;
+           } 
        // Convey to everyone this one has already been bought
        emit ChangeGuitarOwnership(_serial, ownerAddress, msg.sender, now);
     }
