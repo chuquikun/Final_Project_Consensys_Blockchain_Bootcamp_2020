@@ -8,10 +8,10 @@
 4  migrate to network
 5 mine some guitars 
   let gb = await GuitarBrand.at(GuitarBrand.address)
-  gb.mintGuitar("Stratocaster","9999999999999999")
+  gb.mintGuitar("Stratocaster","5000000000000000000")
                                 10000000000000000
-  gb.mintGuitar("Telecaster","7777777777777777")
-  gb.mintGuitar("Jazzmaster","5555555555555555")
+  gb.mintGuitar("Telecaster","3000000000000000000")
+  gb.mintGuitar("Jazzmaster","1000000000000000000")
 6 assign a role of dealer
 7 change status of sale
 8 buy guitar
@@ -29,4 +29,36 @@ pr.toString(10)
 const price = await GuitarBrandInstance .guitars(guitarId).then((res)=>{return res["price"]})
 price.toString(10)
 
+Ganache CLI v6.12.1 (ganache-core: 2.13.1)
+
+Available Accounts
+==================
+(0) 0x508AECE0d3760366731F9e71a57622E69100E559 (100 ETH)
+(1) 0x52c5Fb48D1f182cF6750e4cB62515346dc820ff4 (100 ETH)
+(2) 0x1ec4b72a88fEAdfebfBF38d81B57428b9e890502 (100 ETH)
+(3) 0xA98B8D2F547f75CB2C37a2Dc78C4F28c77884F25 (100 ETH)
+(4) 0x46F156dcD77F7bCdb199762BCA7a359508A7960d (100 ETH)
+(5) 0x59A8497Fed918c5f3f2E994ed101900B4a6918Fd (100 ETH)
+(6) 0x7a5A56c9904e0e892eA1b2b8156ba81e999eAf47 (100 ETH)
+(7) 0x86F7e20a23eA6cd3c1144cf0e45E7Ea7cCb8bc52 (100 ETH)
+(8) 0xBCb7aEe7fd2B647A69931ddD2362c40c1eA0Dc4c (100 ETH)
+(9) 0x51A9C7E13965BF32961D7dEf301C84cf28C79bbd (100 ETH)
+
+Private Keys
+==================
+(0) 0xc03f85a233e6f5c90e15a413a8335df89d2408d5f57473b482562bae3f932e20
+(1) 0x1230d412dcc44909d6509326f5060fbb8027d9168e178c8b6a0b55fbf9c02433
+(2) 0x50d03f33777fab7da5b568452c1dea5b2eea47a5893cbd7e6cdbe1cbd329e141
+(3) 0xc0cbd4d5bb7f389cea762fa15f93554f1addb7744b85f949d6a14682b8823300
+(4) 0xdbbb7c1ca559277f08182d4592f2a3b4e0f9d0773fa7b9f2d18011784181d985
+(5) 0x129715e602b21999db3d9ce0c09ffe883fd744ace3005cdca73eed84956787b0
+(6) 0x753bd1cde1c3cd616376957c1281328da4c9e36295989acccce5a47542b0a079
+(7) 0xb15e0b41a3d2f5e0425b1e747d75ef493b3b70bb12c7b907e4cc7edc550bfd43
+(8) 0x10f5d86151be97874698556787b0ffc754916d760cf852089fc9670028741cac
+(9) 0x15f7b004f6694c9a7c7095d4085ad5281263b7edcd6d0c04bf3f0480eec29386
+
+HD Wallet
+==================
+Mnemonic:      practice mirror rare flush cluster essay diary fetch rain expire olive sting
+Base HD Path:  m/44'/60'/0'/0/{account_index}
 
