@@ -23,6 +23,6 @@
   npm run dev
 7 Import account into metamask
 8 change status of sale
-9 buy guitar
+9 buy guitar, the account of metamask must be different to the deployer's
 
 
