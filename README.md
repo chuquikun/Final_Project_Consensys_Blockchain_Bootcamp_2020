@@ -44,7 +44,12 @@
 ```
    npm install -g truffle
 ```
-4. Install all the required dependencies, on the cloned repository's root :
+4. Install all standard contracts from openzepellin:
+```
+  $ npm install @openzeppelin/contracts
+```
+
+5. Install all the required dependencies, on the cloned repository's root :
 ```
    npm install
 ```
