@@ -76,7 +76,7 @@ contract('GuitarBrand', (accounts) =>{
      * Checks if roles are designated or revoked by their admins and if the events:
      * NewFactory, ClosedFactory, subDealear, unsubDealer are correctly triggered correctly
      */
-    describe('correct role managing',async() =>{
+    describe('correct role management',async() =>{
         it('correct assignation of roles', async() =>{
             // Checks factory role was correctly assigned to the account and the proper log was emitted
             const event1 = factoryUp.logs[0].args
