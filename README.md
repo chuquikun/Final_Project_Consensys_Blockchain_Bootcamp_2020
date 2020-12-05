@@ -66,7 +66,7 @@ On project's directory.
 ```
    truffle test
 ```
-A demo running and passing the test can be seen on [this video](https://www.youtube.com/watch?v=qSPQhSKc4e8)
+A demo running and passing the test can be seen on [this video](https://www.youtube.com/watch?v=v6YtQ1B-fYQ)
 
 ## Running the app
 
