@@ -13,9 +13,9 @@ module.exports = {
       port: 8545,
       network_id: "*",
     },
-    rinkeby: {
-      provider: () => new HDWallet(MNEMONIC, `https://rinkeby.infura.io/v3/${PROJECT_ID}`),
-      network_id: 4,
+    ropsten: {
+      provider: () => new HDWallet(MNEMONIC, `https://ropsten.infura.io/v3/${PROJECT_ID}`),
+      network_id: 3,
       gas: 5500000 // Gas limit used for deploys
     }
   },

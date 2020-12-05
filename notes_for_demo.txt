@@ -5,7 +5,7 @@
   truffle console
   let gb = await GuitarBrand.at(GuitarBrand.address)
 4 Assigning a dealer role to account 1
-  gb.grantRole('0x31fec149acb2a6e0b1854d0fdb3f23210598a76b4f5f5d9f688154dbc523766f',account[1])
+  gb.grantRole('0x31fec149acb2a6e0b1854d0fdb3f23210598a76b4f5f5d9f688154dbc523766f',accounts[1])
 5 Mint some guitars
   gb.mintGuitar("Stratocaster","5000000000000000000")
   gb.mintGuitar("Stratocaster","5000000000000000000")
