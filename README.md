@@ -66,6 +66,7 @@ On project's directory.
 ```
    truffle test
 ```
+A demo running and passing the test can be seen on [this video](https://www.youtube.com/watch?v=qSPQhSKc4e8)
 
 ## Running the app
 
@@ -87,6 +88,8 @@ Same steps
 **Note: if you launch the app after running the test not only your first account is going to have balance less than 100 ETH because the tests perform transaction on the development network that cost ETH.**
 
 4. Follow the step in [this document](https://github.com/chuquikun/Final_Project_Consensys_Blockchain_Bootcamp_2020/blob/master/notes_for_demo.txt) to match the data in the web app.
+
+A full demo can be seen on [this video](https://www.youtube.com/watch?v=qSPQhSKc4e8)
 
 ## Comments on Metamask
 
