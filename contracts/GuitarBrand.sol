@@ -4,6 +4,7 @@ pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -18,7 +19,7 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  * @author Fernando Garduño Galaviz
  */
 
-contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
+contract GuitarBrand is Ownable, Pausable, AccessControl, ERC721, ReentrancyGuard{
     using SafeMath for uint256;
     
     address public brandOwner;
@@ -31,7 +32,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     
     /** 
     * @dev Roles' encoding
-    * FACTORY is analog to a minter, they can make new guitars
+    * FACTORY is analog to a minter, they can make new guitars  
     * Only dealers and factories can sell new guitars 
     * Regular owners of a guitar just can sell used guitars
     */
@@ -91,18 +92,20 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
 
         
     /**
-    * @dev Just checks if guitars for sale it mus be added after ifGuitarExists
+    * @dev Just checks if guitar is for sale it must be added after ifGuitarExists
     */
 
     modifier isForSale (uint _serial){
-        require(guitars[_serial-1].forSale, "Not for sale in this moment!");
+        require(guitars[_serial.sub(1)].forSale, "Not for sale in this moment!");
         _;
     } 
 
   
     /**
-     * @dev Initializes the contract by setting a `brandName` and a `brandSymbol` to the token collection.
-     * Its set the 'brandOwner' to the owner contract which bay default it's  the one who instantiated it.
+     * @param brandName it sets the name of the brand that represent the instance of the contract
+     * @param brandSymbol shortname or symbol for the brand 
+     * @dev Initializes the contract
+     * It set the 'brandOwner' to the owner contract which bay default it's  the one who instantiated it.
      * The hierachy in the company it's defined by the owner who can grant any role, the factories can
      * grant or revoke the dealer role using granRole/revokeRol functions from AccesControl
      */
@@ -116,18 +119,20 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     }
 
     /**
-     * @dev It overrides AccesControl.sol's funtion to emit the proper event
+     * @dev It overrides AccesControl.sol's function to emit the proper event
+     * @notice   DEALER'S ROLE encoding is '0x31fec149acb2a6e0b1854d0fdb3f23210598a76b4f5f5d9f688154dbc523766f'
      */
-    function grantRole(bytes32 role, address account) public override{
+    function grantRole(bytes32 role, address account) public override whenNotPaused {
         AccessControl.grantRole(role,account);
         if(FACTORY == role){emit NewFactory(account);}
         if(DEALER == role){emit subDealear(account);}
     }
 
-        /**
+    /**
      * @dev It overrides AccesControl.sol's funtion to emit the proper event
+     * @notice   FACTORY'S ROLES '0x547b500e425d72fd0723933cceefc203cef652b4736fd04250c3369b3e1a0a73'
      */
-    function revokeRole(bytes32 role, address account) public override{
+    function revokeRole(bytes32 role, address account) public override whenNotPaused{
         AccessControl.revokeRole(role,account);
         if(FACTORY == role){emit ClosedFactory(account);}
         if(DEALER == role){emit unsubDealer(account);}
@@ -138,7 +143,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     * @return All the values of Guitar struct as a single string, separating the member of the strub by comma
     */
     function guitarData(uint _serial) public view ifGuitarExists(_serial) returns (string memory, uint, uint, address, bool, bool) {
-        _serial = _serial-1; // the nth guitar is store in the index n-1 of guitars array
+        _serial = _serial.sub(1); // the nth guitar is store in the index n-1 of guitars array
         return (guitars[_serial].model, guitars[_serial].price, guitars[_serial].serial, guitars[_serial].factory, guitars[_serial].isNew, guitars[_serial].forSale);
     }
 
@@ -147,7 +152,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
      * this structure it's related to the token set in the contructor function
      * @notice It is enforced to use double quotes to price input to avoid because javascript parses numbers up to 2^53-1
      */
-    function mintGuitar(string memory _model, uint _price) public onlyFactories {
+    function mintGuitar(string memory _model, uint _price) public whenNotPaused onlyFactories {
         // to prevent overflow and set a correct value for sale
         require( _price < _price+1 && _price > 0);
         // the guitar is mint and its info added to array of guitar created
@@ -186,6 +191,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
     /**
     * @dev It is meant to feed web's applications
     * @notice This function retrieves sale status of all the guitar ever minted
+    * @return An array of booble depicting the guitar for sale
     */
 
     function theseAreForSale() public view returns(bool[] memory){
@@ -206,7 +212,7 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
  
 
     function buyGuitar(uint _serial) external payable ifGuitarExists(_serial) isForSale(_serial) nonReentrant() {
-        require(msg.value >= guitars[_serial-1].price, "Not enough money to buy this beauty");
+        require(msg.value == guitars[_serial.sub(1)].price, "Not enough money to buy this beauty");
         require(!hasRole(FACTORY,msg.sender), "Factories make, they do not buy");
         address ownerAddress = ownerOf(_serial);
         require(ownerAddress != msg.sender, "You already have this instrument!!");
@@ -222,8 +228,8 @@ contract GuitarBrand is Ownable, AccessControl, ERC721, ReentrancyGuard{
         _transfer(ownerAddress, msg.sender, _serial);
         // Here becomes used, it was bought by a regular user
        if(withoutRol){
-           guitars[_serial-1].isNew = false;
-           guitars[_serial-1].forSale = false;
+           guitars[_serial.sub(1)].isNew = false;
+           guitars[_serial.sub(1)].forSale = false;
            } 
        // Convey to everyone this one has already been bought
        emit ChangeGuitarOwnership(_serial, ownerAddress, msg.sender, now);

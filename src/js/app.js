@@ -139,7 +139,7 @@ App = {
         // Execute the transaction to buy a guitar from the logged account
         
       }).then((price)=>{
-        return GuitarBrandInstance.buyGuitar(guitarId, {from: account, value:price});
+        return GuitarBrandInstance.buyGuitar(guitarId+1, {from: account, value:price});
       }).then(function(result) {
         return App.getStockforSale();
       }).catch(function(err) {
