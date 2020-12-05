@@ -66,7 +66,7 @@ On project's directory.
 ```
    truffle test
 ```
-A demo running and passing the test can be seen on [this video](https://www.youtube.com/watch?v=v6YtQ1B-fYQ)
+A demo running and passing the test can be seen on [this Testing Contract Video](https://www.youtube.com/watch?v=v6YtQ1B-fYQ) (Sorry for the buzz! The app video does not have it)
 
 ## Running the app
 
@@ -89,7 +89,7 @@ Same steps
 
 4. Follow the step in [this document](https://github.com/chuquikun/Final_Project_Consensys_Blockchain_Bootcamp_2020/blob/master/notes_for_demo.txt) to match the data in the web app.
 
-A full demo can be seen on [this video](https://www.youtube.com/watch?v=qSPQhSKc4e8)
+A full demo can be seen on [this App Video](https://www.youtube.com/watch?v=OO304fZgADM&feature=youtu.be)
 
 ## Comments on Metamask
 
